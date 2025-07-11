@@ -4,7 +4,7 @@ import (
 	"context"
 	"embed"
 	"fmt"
-	"gokindergarten/app/api"
+	"kindergarten-web/app/api"
 	"log"
 	"log/slog"
 	"net/http"

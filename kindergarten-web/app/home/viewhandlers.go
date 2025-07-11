@@ -2,8 +2,8 @@
 package home
 
 import (
-	"gokindergarten/app/http"
-	"gokindergarten/views/home"
+	"kindergarten-web/app/http"
+	"kindergarten-web/views/home"
 
 	"github.com/gin-gonic/gin"
 )

@@ -2,7 +2,7 @@ package main
 
 import (
 	"embed"
-	"gokindergarten/app"
+	"kindergarten-web/app"
 	"log"
 	"log/slog"
 	"os"

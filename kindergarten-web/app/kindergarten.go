@@ -4,13 +4,10 @@ package app
 import (
 	"context"
 	"embed"
-	"gokindergarten/app/api"
-	"gokindergarten/app/database"
-	"gokindergarten/app/database/postgres"
-	"gokindergarten/app/home"
-	"gokindergarten/app/http"
-	"gokindergarten/db/migrations"
-	"log"
+	"kindergarten-web/app/api"
+	"kindergarten-web/app/database/postgres"
+	"kindergarten-web/app/home"
+	"kindergarten-web/app/http"
 	"log/slog"
 	"os"
 	"os/signal"
@@ -25,8 +22,6 @@ func Start(args []string, publicDir embed.FS) {
 	baseContext, cancel := context.WithCancel(context.Background())
 	signalChannel := registerShutdownHook(cancel)
 	mainGroup, mainContext := errgroup.WithContext(baseContext)
-
-	runDBMigrations()
 
 	postgres.NewPostgresSqlDatabase(mainGroup, mainContext)
 
@@ -45,21 +40,6 @@ func Start(args []string, publicDir embed.FS) {
 		slog.Info("Closing App")
 	}
 	defer close(signalChannel)
-}
-
-func runDBMigrations() {
-	dbConnectionString := os.Getenv("DB_URL")
-	gdb := database.NewGenericDb()
-	sqldb, err := gdb.Open(dbConnectionString)
-	if err != nil {
-		log.Fatalf("could not open db: %v", err.Error())
-	}
-
-	err = migrations.RunMigrations(sqldb)
-	if err != nil {
-		slog.Error("migrations error", "err", err.Error())
-	}
-	gdb.Close()
 }
 
 func registerShutdownHook(cancel context.CancelFunc) chan os.Signal {
