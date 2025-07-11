@@ -1,6 +1,7 @@
 package main
 
 import (
+	"embed"
 	"gokindergarten/app"
 	"log"
 	"log/slog"
@@ -8,6 +9,9 @@ import (
 
 	"github.com/joho/godotenv"
 )
+
+//go:embed static/*
+var publicDir embed.FS
 
 func init() {
 	err := godotenv.Load()
@@ -19,5 +23,5 @@ func init() {
 
 func main() {
 	slog.Info("Hello GO Kindergatren")
-	app.Start(os.Args)
+	app.Start(os.Args, publicDir)
 }

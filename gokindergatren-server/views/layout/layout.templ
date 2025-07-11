@@ -1,0 +1,82 @@
+package layout
+
+templ PageAll(title string) {
+	<html>
+		<head>
+			@head()
+		</head>
+		<body class="flex flex-col min-h-screen">
+			@header()
+			@navigation()
+			<div id="content">
+				<div id="content-body">
+					{ children... }
+				</div>
+			</div>
+			<footer class="mt-auto bg-gray-800 text-white p-2">
+				@footer()
+			</footer>
+		</body>
+	</html>
+}
+
+templ head() {
+	<!-- Include the Tailwind JS file -->
+	<script src="https://cdn.tailwindcss.com"></script>
+	<script src="https://unpkg.com/htmx.org@2.0.4"> </script>
+}
+
+templ header() {
+	<div id="header" class="bg-gray-800 text-white p-3">
+		<label id="title" class="block text-xl font-medium text-white mx-2 my-2">Kindergarten</label>
+	</div>
+}
+
+templ navigation() {
+	<div id="nav" class="bg-gray-800 text-white p-2">
+		<p>
+			<button
+				hx-get="/gokindergarten"
+				hx-target="#content-body"
+				hx-push-url="true"
+				class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-1 text-sm font-medium"
+			>
+				Home
+			</button>
+			<button
+				hx-get="/gopt/login"
+				hx-target="#content-body"
+				hx-push-url="true"
+				class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-1 text-sm font-medium"
+			>
+				Login
+			</button>
+		</p>
+	</div>
+}
+
+templ Content() {
+	CONTENT
+}
+
+templ footer() {
+	<div class="w-full mx-auto max-w-screen-xl p-2 md:flex md:items-center md:justify-between">
+		<span class="text-sm text-white sm:text-center">
+			© 2023 <a href="#" class="hover:underline">Szymon</a>. All Rights Reserved.
+		</span>
+		<ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 sm:mt-0">
+			<li>
+				<a href="#" class="mr-4 hover:underline md:mr-6 ">About</a>
+			</li>
+			<li>
+				<a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
+			</li>
+			<li>
+				<a href="#" class="mr-4 hover:underline md:mr-6">Licensing</a>
+			</li>
+			<li>
+				<a href="#" class="hover:underline">Contact</a>
+			</li>
+		</ul>
+	</div>
+}

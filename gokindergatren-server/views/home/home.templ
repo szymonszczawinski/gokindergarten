@@ -1,0 +1,19 @@
+package home
+
+import "gokindergarten/views/layout"
+
+templ Home(contentOnly bool) {
+	if contentOnly {
+		@homeContent()
+	} else {
+		@layout.PageAll("Home XXX") {
+			@homeContent()
+		}
+	}
+}
+
+templ homeContent() {
+	<p class="text-center text-xl font-medium">
+		Home Page
+	</p>
+}
